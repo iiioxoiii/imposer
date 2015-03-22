@@ -1,0 +1,51 @@
+#!/bin/bash
+
+
+# script que permet fer quadernets d'un pdf
+# 1) Es canvia l'arxiu de format pdf a ps
+# 2) Es canvia la mida d'A4 a A5
+
+read -p "Press any key..."
+
+
+echo "L'arxiu ha de tenir el nom input.pdf. Si és així prem una tecla per continuar"
+pause "Press jey to continue..."
+
+if pdftops -paper A4 input.pdf output.ps
+
+then
+	echo "[OK]"
+else
+	echo "error"
+fi
+
+
+#convertir la mida l'arxiu generat output.ps de A4 a A5
+
+echo "canviant de mida A4 a A5 i fent quadernets..."
+if psbook output.ps
+then
+        echo "[OK]"
+else
+        echo "error"
+fi
+
+# pas misterios
+echo "ni se lo que fa..."
+if psnup -pa4 -2 output.ps output_A5.ps
+then
+        echo "[OK]"
+else
+        echo "error"
+fi
+
+rm output.ps
+ sudo alien -k nombre_del_fichero.rpm
+# convertir una altra vegada a pdf
+echo "convertint a pdf..."
+if ps2pdf output_A5.ps final_A5.pdf
+then
+	echo "[OK]"
+else
+	echo "error"
+fi
